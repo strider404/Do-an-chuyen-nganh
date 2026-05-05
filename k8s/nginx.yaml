@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: gateway
-          image: nguyenducmanh247/osm-gateway:latest
+          image: strider404/osm-gateway:latest
           ports:
             - containerPort: 80   
 

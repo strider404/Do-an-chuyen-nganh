@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: delivery-service
+  namespace: osm
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: delivery-service
+  template:
+    metadata:
+      labels:
+        app: delivery-service
+    spec:
+      containers:
+        - name: delivery-service
+          image: strider404/osm-delivery-service:latest
+          ports:
+            - containerPort: 4005
+          env:
+            - name: MONGO_URI
+              value: mongodb://mongo:27017/deliveryservice
+            - name: NOTIFICATION_SERVICE_URL
+              value: http://notification-service:4006
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: delivery-service
+  namespace: osm
+spec:
+  type: ClusterIP
+  selector:
+    app: delivery-service
+  ports:
+    - protocol: TCP
+      port: 4005
+      targetPort: 4005
