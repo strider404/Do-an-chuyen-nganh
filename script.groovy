@@ -7,7 +7,7 @@ def buildAndPushDockerImages() {
     withCredentials([usernamePassword(credentialsId: "docker-hub", usernameVariable: "DOCKER_USER",
     passwordVariable: "DOCKER_PASS")]) {
         sh "echo \$DOCKER_PASS | docker login -u \$DOCKER_USER --password-stdin"
-        def services = ["user-service", "restaurant-service", "order-service", "payment-service", "frontend", "gateway"]
+        def services = ["user-service", "restaurant-service", "order-service", "payment-service", "delivery-service", "notification-service", "frontend", "gateway"]
         services.each { svc ->
             echo "Building and pushing image for: ${svc}"
             sh "docker build -t ${DOCKER_HUB_USER}/osm-${svc}:${IMAGE_TAG} ./${svc}"
