@@ -21,6 +21,8 @@ spec:
           env:
             - name: MONGO_URI
               value: mongodb://mongo:27017/userservice
+            - name: JWT_SECRET
+              value: "secret_key"
 
 ---
 apiVersion: v1
